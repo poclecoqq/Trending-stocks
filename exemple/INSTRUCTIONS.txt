@@ -1,0 +1,4 @@
+to download Chloe project:
+git submodule init 
+git submodule update
+
