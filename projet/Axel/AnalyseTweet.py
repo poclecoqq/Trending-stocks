@@ -39,7 +39,32 @@ api = tweepy.API(auth)
 nomUtilisateur =  args.user # nom de l'utilisateur que l'on veut
 nombreTweet = 200 #nombre de tweet que l'on veut recuperer
 # Recupere tout les status d'un tulisateur
+#print(status.text)
 for status in api.user_timeline(screen_name = nomUtilisateur, count = nombreTweet):
-    print(status.text)
     tweet = TextBlob(status.text)
     print(u"Polarity {}, subjectivity {}".format(tweet.sentiment.polarity, tweet.sentiment.subjectivity))
+
+
+
+# RECUPERATION DES ARTICLES SUR GOOGLES NEWS
+# source: https://clay-atlas.com/us/blog/2020/01/21/python-english-note-package-googlenews-get-google-news/
+
+from GoogleNews import GoogleNews
+
+googlenews = GoogleNews()
+googlenews.search(args.user)
+result = googlenews.result()
+text = googlenews.gettext() #permet d'avoir les titres
+print(text[1])
+print("TAILLE DES RESULTATS EST DE: ")
+print(len(result))
+
+for n in range(len(result)):
+    print(n)
+    for index in result[n]:
+        print(index, '\n', result[n][index])
+        if index == "desc":
+            article = TextBlob(result[n][index])
+            print(u"Polarity {}, subjectivity {}".format(article.sentiment.polarity, article.sentiment.subjectivity))
+
+
