@@ -1,0 +1,3 @@
+[submodule "exemple/SentimentAnalysis"]
+	path = exemple/SentimentAnalysis
+	url = git@github.com:PolyFinances/SentimentAnalysis.git
