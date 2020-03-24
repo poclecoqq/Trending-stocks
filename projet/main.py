@@ -13,12 +13,12 @@ def initialize_argparser():
 
 if __name__ == "__main__":
     command_line_args = initialize_argparser()
-    tweets_handler.authentify()
     startDate = datetime.datetime(2018, 6, 1, 0, 0, 0)
     endDate =   datetime.datetime(2019, 1, 1, 0, 0, 0)
 
 
-    tweets = tweets_handler.get_tweets_in_period(command_line_args.user, startDate, endDate)
+    tweets_handler.get_tweets(command_line_args.user, startDate.strftime("%Y-%m-%d"), endDate.strftime("%Y-%m-%d"))
+    tweets = []
     if not tweets:
         print("No tweet found")
     for tweet in tweets:
