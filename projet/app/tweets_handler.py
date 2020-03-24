@@ -1,6 +1,7 @@
 import subprocess 
 import datetime
 import os
+import csv
 
 def exec_python2(command):
     process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
@@ -17,7 +18,36 @@ def get_path_to_executable():
     return os.path.join(cur_abs_path, "GetOldTweets-python", "Exporter.py")
 
 
-def get_tweets(username, start_date, end_date):
+def build_command(username=None, start_date=None, end_date=None, query_search=None):
     path_to_executable = get_path_to_executable()
-    command = "python2 " + path_to_executable + " --username \"" + username + "\" --since " + start_date + " --until " + end_date
-    exec_python2(command)
+    command = "python2 " + path_to_executable
+    if username:
+        command = command + " --username \"" + username + "\""
+    if start_date:
+        command = command + " --since " + start_date
+    if end_date:
+        command = command + " --until " + end_date
+    if query_search:
+        command = command + " --querysearch \"" + query_search + "\""
+    return command
+
+
+def get_tweets(username=None, start_date=None, end_date=None, query_search=None):
+    # command = build_command(username, start_date, end_date, query_search)
+    # exec_python2(command)
+    t = get_tweets_from_csv('output_got.csv')
+    return t
+
+def get_tweets_from_csv(file_name):
+    tweets = []
+    with open(file_name, 'r') as file:
+        reader = csv.reader(file, delimiter = ';')
+        next(reader)
+        for row in reader:
+            try:
+                tweet = {"username":row[0], "date":row[1], "retweets":row[2], "favorites":row[3], "text":row[4], "geo":row[5], "mentions":row[6], "hashtags":row[7], "id":row[8], "permalink":row[9]}
+                tweets.append(tweet)
+            except:
+                continue
+    return tweets
+

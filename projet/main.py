@@ -17,12 +17,11 @@ if __name__ == "__main__":
     endDate =   datetime.datetime(2019, 1, 1, 0, 0, 0)
 
 
-    tweets_handler.get_tweets(command_line_args.user, startDate.strftime("%Y-%m-%d"), endDate.strftime("%Y-%m-%d"))
-    tweets = []
+    tweets = tweets_handler.get_tweets(command_line_args.user, startDate.strftime("%Y-%m-%d"), endDate.strftime("%Y-%m-%d"))
     if not tweets:
         print("No tweet found")
     for tweet in tweets:
-        p = sentiment_analysis.get_polarity(tweet.text)
-        s = sentiment_analysis.get_subjectivity(tweet.text)
+        p = sentiment_analysis.get_polarity(tweet["text"])
+        s = sentiment_analysis.get_subjectivity(tweet["text"])
         print(u"Polarity {}, subjectivity {}".format(p, s))
     
