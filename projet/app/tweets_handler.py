@@ -3,6 +3,8 @@ import datetime
 import os
 import csv
 
+got_output_file = "output_got.csv"
+
 def exec_python2(command):
     process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
     output, error = process.communicate() 
@@ -33,9 +35,11 @@ def build_command(username=None, start_date=None, end_date=None, query_search=No
 
 
 def get_tweets(username=None, start_date=None, end_date=None, query_search=None):
-    # command = build_command(username, start_date, end_date, query_search)
-    # exec_python2(command)
-    t = get_tweets_from_csv('output_got.csv')
+    command = build_command(username, start_date, end_date, query_search)
+    exec_python2(command)
+    # GOT (repository) downloads results in a csv file
+    t = get_tweets_from_csv(got_output_file)
+    delete_file(got_output_file)
     return t
 
 def get_tweets_from_csv(file_name):
@@ -51,3 +55,6 @@ def get_tweets_from_csv(file_name):
                 continue
     return tweets
 
+def delete_file(path):
+    if os.path.exists(path):
+        os.remove(path)
