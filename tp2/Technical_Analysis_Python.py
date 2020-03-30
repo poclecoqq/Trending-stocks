@@ -13,7 +13,7 @@ import math as m
 
 #Moving Average  
 def MA(df, n):  
-    MA = pd.Series(pd.rolling_mean(df['Close'], n), name = 'MA_' + str(n))  
+    MA = pd.Series(pd.rolling(df['Close'], n), name = 'MA_' + str(n)).mean()  
     df = df.join(MA)  
     return df
 
@@ -50,17 +50,17 @@ def ATR(df, n):
     df = df.join(ATR)  
     return df
 
-#Bollinger Bands  
+#bollinger Bands  
 def BBANDS(df, n):  
-    MA = pd.Series(pd.rolling_mean(df['Close'], n))  
-    MSD = pd.Series(pd.rolling_std(df['Close'], n))  
+    MA = pd.Series(df['Close'].rolling(n).mean())
+    MSD = pd.Series(df['Close'].rolling(n).std())  
     b1 = 4 * MSD / MA  
     B1 = pd.Series(b1, name = 'BollingerB_' + str(n))  
     df = df.join(B1)  
     b2 = (df['Close'] - MA + 2 * MSD) / (4 * MSD)  
-    B2 = pd.Series(b2, name = 'Bollinger%b_' + str(n))  
+    B2 = pd.Series(b2, name = 'Bollinger%b_' + str(n)) 
     df = df.join(B2)  
-    return df
+    return B1
 
 #Pivot Points, Supports and Resistances  
 def PPSR(df):  
@@ -80,7 +80,7 @@ def PPSR(df):
 def STOK(df):  
     SOk = pd.Series((df['Close'] - df['Low']) / (df['High'] - df['Low']), name = 'SO%k')  
     df = df.join(SOk)  
-    return df
+    return SOk
 
 # Stochastic Oscillator, EMA smoothing, nS = slowing (1 if no slowing)  
 def STO(df,  nK, nD, nS=1):  
@@ -152,8 +152,8 @@ def ADX(df, n, n_ADX):
 
 #MACD, MACD Signal and MACD difference  
 def MACD(df, n_fast, n_slow):  
-    EMAfast = pd.Series(pd.ewma(df['Close'], span = n_fast, min_periods = n_slow - 1))  
-    EMAslow = pd.Series(pd.ewma(df['Close'], span = n_slow, min_periods = n_slow - 1))  
+    EMAfast = pd.Series(df['Close'].ewm(span = n_fast, min_periods = n_slow - 1))  
+    EMAslow = pd.Series(df['Close'].ewm(span = n_slow, min_periods = n_slow - 1))  
     MACD = pd.Series(EMAfast - EMAslow, name = 'MACD_' + str(n_fast) + '_' + str(n_slow))  
     MACDsign = pd.Series(pd.ewma(MACD, span = 9, min_periods = 8), name = 'MACDsign_' + str(n_fast) + '_' + str(n_slow))  
     MACDdiff = pd.Series(MACD - MACDsign, name = 'MACDdiff_' + str(n_fast) + '_' + str(n_slow))  
@@ -276,7 +276,7 @@ def MFI(df, n):
     PosMF = pd.Series(PosMF)  
     TotMF = PP * df['Volume']  
     MFR = pd.Series(PosMF / TotMF)  
-    MFI = pd.Series(pd.rolling_mean(MFR, n), name = 'MFI_' + str(n))  
+    MFI = pd.Series(MFR.rolling(n).mean(), name = 'MFI_' + str(n))  
     df = df.join(MFI)  
     return df
 
