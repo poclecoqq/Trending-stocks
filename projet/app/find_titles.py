@@ -22,6 +22,9 @@ c_dir = os.path.dirname(os.path.realpath(__file__))
 # 13 - Technology
 # 14 - Utilities & Pipeline
 def get_companies(sector_index):
+    if sector_index not in range(1,15):
+        print("sector_index must be between 1 and 15")
+        exit()
     # TODO: use firefox or google
     driver = webdriver.Chrome(os.path.join(c_dir, "chromedriver"))
     driver.get('https://api.tmxmoney.com/fr/migreport/search')
