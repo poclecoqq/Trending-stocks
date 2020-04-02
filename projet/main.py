@@ -1,7 +1,7 @@
 import argparse
 import datetime
 
-from app import news_handler, sentiment_analysis, tweets_handler
+from app import sentiment_analysis, tweets_handler
 
 def initialize_argparser():
     parser = argparse.ArgumentParser(prog="tweet-analysis", description="Analyse tweet")
@@ -13,8 +13,8 @@ def initialize_argparser():
 
 if __name__ == "__main__":
     command_line_args = initialize_argparser()
-    startDate = datetime.datetime(2018, 6, 1, 0, 0, 0)
-    endDate =   datetime.datetime(2019, 1, 1, 0, 0, 0)
+    startDate = datetime.datetime(2019, 1, 1, 0, 0, 0)
+    endDate =   datetime.datetime(2019, 2, 1, 0, 0, 0)
 
 
     tweets = tweets_handler.get_tweets(command_line_args.user, startDate.strftime("%Y-%m-%d"), endDate.strftime("%Y-%m-%d"))
