@@ -44,7 +44,6 @@ def get_tweets(username=None, start_date=None, end_date=None, query_search=None,
     # GOT (repository) downloads results in a csv file
     t = get_tweets_from_csv(got_output_file)
     delete_file(got_output_file)
-    print(t)
     return t
 
 def get_tweets_from_csv(file_name):

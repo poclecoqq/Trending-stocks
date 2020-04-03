@@ -26,6 +26,7 @@ class TweetsWorker(Thread):
             try:
                 print("get tweets thread running")
                 t = get_tweets(username=user, start_date=start_date,end_date=end_date,query_search=querry_filter, toptweets=True, maxtweets=1, got_output_file=str(self.id) + ".csv" )
+                global gtweets
                 gtweets_loc.acquire()
                 gtweets.extend(t)
                 gtweets_loc.release()
@@ -34,6 +35,7 @@ class TweetsWorker(Thread):
 
 
 def start_querries(querries):
+    global gtweets
     gtweets = []
     # Create a queue to communicate with the worker threads
     task_queue = Queue()
@@ -48,7 +50,6 @@ def start_querries(querries):
         task_queue.put(querry)
     # Causes the main thread to wait for the queue to finish processing all the tasks
     task_queue.join()
-
     return gtweets
 
 
@@ -96,12 +97,15 @@ def get_analyst_tweets(start_date, end_date, stocks=None):
             querry_filter = str(stock[1]) + " " + str(stock[2])
             tweets[stock[1]].extend(get_tweets(analyst, start_date, end_date, querry_filter))
     return tweets
-    
+
+# make market tweets about stock filter    
+def make_market_filter(stock):
+    return str(stock[0]) + " " + str(stock[1]) + " stock market"
 
 def get_market_tweets(start_date, end_date, stocks=None):
     if not stocks:
         stocks = get_cached_stocks()
-    start_querries([ (start_date, end_date, str(stock[0]) + " " + str(stock[1]) + " stock market", None) for stock in stocks])
+    return start_querries([ (start_date, end_date, make_market_filter(stock), None) for stock in stocks])
 
 if __name__ == "__main__":
     startDate = datetime.datetime(2019, 1, 1, 0, 0, 0)
