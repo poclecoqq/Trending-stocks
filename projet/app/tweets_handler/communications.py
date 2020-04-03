@@ -3,7 +3,6 @@ import datetime
 import os
 import csv
 
-got_output_file = "output_got.csv"
 
 def exec_python2(command):
     process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
@@ -20,9 +19,11 @@ def get_path_to_executable():
     return os.path.join(cur_abs_path, "GetOldTweets-python", "Exporter.py")
 
 
-def build_command(username=None, start_date=None, end_date=None, query_search=None):
+def build_command(got_output_file, username=None, start_date=None, end_date=None, query_search=None, maxtweets=None, toptweets=False):
     path_to_executable = get_path_to_executable()
-    command = "python2 " + path_to_executable
+    command = "python2 " + path_to_executable + " --output " + got_output_file 
+    if maxtweets:
+        command = command + " --maxtweets " + str(maxtweets)
     if username:
         command = command + " --username \"" + username + "\""
     if start_date:
@@ -31,15 +32,19 @@ def build_command(username=None, start_date=None, end_date=None, query_search=No
         command = command + " --until " + end_date
     if query_search:
         command = command + " --querysearch \"" + query_search + "\""
+    # if toptweets:
+    #     command = command + " --toptweets "
     return command
 
 
-def get_tweets(username=None, start_date=None, end_date=None, query_search=None):
-    command = build_command(username, start_date, end_date, query_search)
+def get_tweets(username=None, start_date=None, end_date=None, query_search=None, maxtweets=None, toptweets=False, got_output_file="output_got.csv"):
+    command = build_command(got_output_file, username, start_date, end_date, query_search, maxtweets, toptweets)
+    print(command)
     exec_python2(command)
     # GOT (repository) downloads results in a csv file
     t = get_tweets_from_csv(got_output_file)
     delete_file(got_output_file)
+    print(t)
     return t
 
 def get_tweets_from_csv(file_name):

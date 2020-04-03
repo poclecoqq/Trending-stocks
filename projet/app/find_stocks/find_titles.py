@@ -31,6 +31,7 @@ def get_pages_number(html):
 
 
 # Returns 100 companies from a particular sector. Input correpsonding index
+# 0 - All sectors
 # 1 - cpc
 # 2 - Clean Technologies
 # 3 - Closed-End Funds
@@ -82,5 +83,5 @@ def get_companies(sector_index, market_cap_index=5):
 
 
 if __name__ == "__main__":
-    cop = get_companies(1)
+    cop = get_companies(2)
     print(cop)
