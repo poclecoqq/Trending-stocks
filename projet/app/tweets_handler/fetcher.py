@@ -83,20 +83,15 @@ def get_cached_stocks():
     return stocks
 
 
+# make market tweets about stock filter    
+def make_analyst_filter(stock):
+    return str(stock[0]) + " " + str(stock[1])
 
 def get_analyst_tweets(start_date, end_date, stocks=None):
     twitter_accounts = get_finance_twitter_accounts()
     if not stocks:
         stocks = get_cached_stocks()
-    tweets = {}
-    for stock in stocks:
-        # the ticker is the key
-        tweets[stock[1]] = []
-        # add every tweet betweem start and end date concerning the stock
-        for analyst in twitter_accounts:
-            querry_filter = str(stock[1]) + " " + str(stock[2])
-            tweets[stock[1]].extend(get_tweets(analyst, start_date, end_date, querry_filter))
-    return tweets
+    return start_querries([ (start_date, end_date, make_analyst_filter(stock), user) for stock in stocks for user in twitter_accounts])
 
 # make market tweets about stock filter    
 def make_market_filter(stock):
@@ -111,4 +106,4 @@ if __name__ == "__main__":
     startDate = datetime.datetime(2019, 1, 1, 0, 0, 0)
     endDate =   datetime.datetime(2019, 2, 1, 0, 0, 0)
 
-    print(get_market_tweets(startDate.strftime("%Y-%m-%d"), endDate.strftime("%Y-%m-%d")))
+    print(get_analyst_tweets(startDate.strftime("%Y-%m-%d"), endDate.strftime("%Y-%m-%d")))
