@@ -25,7 +25,7 @@ class TweetsWorker(Thread):
             start_date, end_date, querry_filter, user = self.input_queue.get()
             try:
                 print("get tweets thread running")
-                t = get_tweets(username=user, start_date=start_date,end_date=end_date,query_search=querry_filter, toptweets=True, maxtweets=1, got_output_file=str(self.id) + ".csv" )
+                t = get_tweets(username=user, start_date=start_date,end_date=end_date,query_search=querry_filter, maxtweets=100, got_output_file=str(self.id) + ".csv" )
                 global gtweets
                 gtweets_loc.acquire()
                 gtweets.extend(t)

@@ -19,7 +19,7 @@ def get_path_to_executable():
     return os.path.join(cur_abs_path, "GetOldTweets-python", "Exporter.py")
 
 
-def build_command(got_output_file, username=None, start_date=None, end_date=None, query_search=None, maxtweets=None, toptweets=False):
+def build_command(got_output_file, username=None, start_date=None, end_date=None, query_search=None, maxtweets=None):
     path_to_executable = get_path_to_executable()
     command = "python2 " + path_to_executable + " --output " + got_output_file 
     if maxtweets:
@@ -32,13 +32,11 @@ def build_command(got_output_file, username=None, start_date=None, end_date=None
         command = command + " --until " + end_date
     if query_search:
         command = command + " --querysearch \"" + query_search + "\""
-    # if toptweets:
-    #     command = command + " --toptweets "
     return command
 
 
-def get_tweets(username=None, start_date=None, end_date=None, query_search=None, maxtweets=None, toptweets=False, got_output_file="output_got.csv"):
-    command = build_command(got_output_file, username, start_date, end_date, query_search, maxtweets, toptweets)
+def get_tweets(username=None, start_date=None, end_date=None, query_search=None, maxtweets=None,  got_output_file="output_got.csv"):
+    command = build_command(got_output_file, username, start_date, end_date, query_search, maxtweets)
     print(command)
     exec_python2(command)
     # GOT (repository) downloads results in a csv file
