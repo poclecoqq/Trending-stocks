@@ -1,1 +1,1 @@
-from .communications import get_tweets
+from .fetcher import get_analyst_tweets, get_market_tweets
