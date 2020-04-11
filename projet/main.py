@@ -13,10 +13,6 @@ def initialize_argparser():
 
 
 if __name__ == "__main__":
-    # startDate = datetime.datetime(2019, 1, 1, 0, 0, 0)
-    # endDate =   datetime.datetime(2019, 2, 1, 0, 0, 0)
-
-    # print(get_analyst_tweets(startDate.strftime("%Y-%m-%d"), endDate.strftime("%Y-%m-%d")))
     command_line_args = initialize_argparser()
     startDate = datetime.datetime(2019, 1, 1, 0, 0, 0)
     endDate =   datetime.datetime(2019, 2, 1, 0, 0, 0)

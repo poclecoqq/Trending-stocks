@@ -37,7 +37,6 @@ def build_command(got_output_file, username=None, start_date=None, end_date=None
 
 def get_tweets(username=None, start_date=None, end_date=None, query_search=None, maxtweets=None,  got_output_file="output_got.csv"):
     command = build_command(got_output_file, username, start_date, end_date, query_search, maxtweets)
-    print(command)
     exec_python2(command)
     # GOT (repository) downloads results in a csv file
     t = get_tweets_from_csv(got_output_file)

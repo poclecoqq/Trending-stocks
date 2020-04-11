@@ -5,12 +5,11 @@ from queue import Queue
 from threading import Thread
 from threading import Lock
 
-from communications import get_tweets
+from .communications import get_tweets
 
 c_dir = os.path.dirname(os.path.realpath(__file__))
 gtweets_loc = Lock()
 gtweets = []
-
 
 class TweetsWorker(Thread):
 
@@ -24,7 +23,6 @@ class TweetsWorker(Thread):
             # Get the work from the queue and expand the tuple
             start_date, end_date, querry_filter, user = self.input_queue.get()
             try:
-                print("get tweets thread running")
                 t = get_tweets(username=user, start_date=start_date,end_date=end_date,query_search=querry_filter, maxtweets=100, got_output_file=str(self.id) + ".csv" )
                 global gtweets
                 gtweets_loc.acquire()
@@ -103,7 +101,7 @@ def get_market_tweets(start_date, end_date, stocks=None):
     return start_querries([ (start_date, end_date, make_market_filter(stock), None) for stock in stocks])
 
 if __name__ == "__main__":
-    startDate = datetime.datetime(2019, 1, 1, 0, 0, 0)
+    startDate = datetime.datetime(2017, 1, 1, 0, 0, 0)
     endDate =   datetime.datetime(2019, 2, 1, 0, 0, 0)
 
-    print(get_analyst_tweets(startDate.strftime("%Y-%m-%d"), endDate.strftime("%Y-%m-%d")))
+    print(get_market_tweets(startDate.strftime("%Y-%m-%d"), endDate.strftime("%Y-%m-%d")))
