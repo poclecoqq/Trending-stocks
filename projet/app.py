@@ -1,16 +1,17 @@
 from app.main import main
 import argparse
 import datetime
-
+import app.tweets_handler.fetcher as fetcher
 
 def initialize_argparser():
-    parser = argparse.ArgumentParser(prog="tweet-analysis", description="Analyse tweet")
+    parser = argparse.ArgumentParser(prog="tweet-analysis", description="Analyse tweet. See README file for more details.")
     today = datetime.date.today()
     parser.add_argument("-y", "--year", action="store", default=today.strftime("%Y"), help="Year for stock analysis")
     parser.add_argument("-m", "--month", action="store", default=today.strftime("%m"), help="Month for stock analysis")
     parser.add_argument("-d", "--day", action="store", default=today.strftime("%d"), help="Day for stock analysis")
     parser.add_argument("-p", "--period", action="store", default=30, help="Time period considered for stock analysis. Unit:days")
     parser.add_argument("-s", "--step", help="Execute program from which step. 1:Fetch stocks, 2:Fetch Twitter 3:Sentiment anlaysis", choices=["1", "2", "3"], default="1")
+    parser.add_argument("-t", "--thread", help="Computationnal ressources used for queerying twitter. ", choices=[i for i in range(1,101)], default=2)
     args = parser.parse_args()
     return args
 
@@ -31,7 +32,6 @@ def is_period_valid(args):
 def build_period_dates(args):
     period = datetime.timedelta(int(args.period))
     end_date = args.year + "-" + args.month + "-" + args.day 
-    print(end_date)
     try:
         end_date = datetime.datetime.strptime(end_date, "%Y-%m-%d")
     except:
@@ -54,15 +54,20 @@ def read_arguments(args):
     return start_date, end_date, step
 
 def give_results(best_stocks):
-    print("The best stocks are: ")
+    print("The best stocks are: ", end = ', ')
     for stock in best_stocks:
         print(stock, end = ', ')
+    print()
     with open("output.txt", "w") as file:
         for stock in best_stocks:
             file.write(stock + ", ")
 
+def set_thread_number(args):
+    threads = int(args.thread)
+    fetcher.thread_nb = threads
 
 args = initialize_argparser()
+set_thread_number(args)
 start_date, end_date, step = read_arguments(args)
 best_stocks = main(start_date, end_date, step)
 give_results(best_stocks)

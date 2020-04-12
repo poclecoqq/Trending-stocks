@@ -10,7 +10,7 @@ from .communications import get_tweets
 c_dir = os.path.dirname(os.path.realpath(__file__))
 gtweets_loc = Lock()
 gtweets = []
-
+thread_nb = 2
 
 def add_tweets(stock, tweets):
     for tweet in tweets:
@@ -40,12 +40,12 @@ class TweetsWorker(Thread):
 
 
 def start_querries(querries):
-    global gtweets
+    global gtweets, thread_nb
     gtweets = []
     # Create a queue to communicate with the worker threads
     task_queue = Queue()
     # Create worker threads
-    for i in range(2):
+    for i in range(thread_nb):
         worker = TweetsWorker(task_queue, i)
         # Setting daemon to True will let the main thread exit even though the workers are blocking
         worker.daemon = True
@@ -69,44 +69,21 @@ def get_finance_twitter_accounts():
     return accounts
 
 
-def valid_row(row):
-    complete_row = True
-    for elem in row:
-        if not elem:
-            complete_row = False
-    return complete_row
-
-def get_cached_stocks():
-    fin_csv = os.path.join(c_dir, "data", "test.csv")
-    stocks = []
-    with open(fin_csv, 'r') as file:
-        reader = csv.reader(file)
-        next(reader)
-        for row in reader:
-            if valid_row(row):
-                stocks.append((row[0],row[1],row[2]))
-    return stocks
-
-
 # make market tweets about stock filter    
 def make_analyst_filter(stock):
     return str(stock[0]) + " " + str(stock[1])
 
-def get_analyst_tweets(start_date, end_date, stocks=None):
+def get_analyst_tweets(start_date, end_date, stocks):
     print("Fetching analyst tweets")
     twitter_accounts = get_finance_twitter_accounts()
-    if not stocks:
-        stocks = get_cached_stocks()
     return start_querries([ (start_date, end_date, make_analyst_filter(stock), stock[1], user) for stock in stocks for user in twitter_accounts])
 
 # make market tweets about stock filter    
 def make_market_filter(stock):
     return str(stock[0]) + " " + str(stock[1]) + " stock market"
 
-def get_market_tweets(start_date, end_date, stocks=None):
+def get_market_tweets(start_date, end_date, stocks):
     print("Fetching market tweets")
-    if not stocks:
-        stocks = get_cached_stocks()
     return start_querries([ (start_date, end_date, make_market_filter(stock), stock[1], None) for stock in stocks])
 
 if __name__ == "__main__":
