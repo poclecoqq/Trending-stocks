@@ -11,6 +11,15 @@ c_dir = os.path.dirname(os.path.realpath(__file__))
 gtweets_loc = Lock()
 gtweets = []
 
+
+def add_tweets(stock, tweets):
+    for tweet in tweets:
+        tweet["stock"] = stock
+    global gtweets, gtweets_loc
+    gtweets_loc.acquire()
+    gtweets.extend(tweets)
+    gtweets_loc.release()
+
 class TweetsWorker(Thread):
 
     def __init__(self, input_queue, id):
@@ -21,13 +30,11 @@ class TweetsWorker(Thread):
     def run(self):
         while True:
             # Get the work from the queue and expand the tuple
-            start_date, end_date, querry_filter, user = self.input_queue.get()
+            start_date, end_date, querry_filter, stock, user  = self.input_queue.get()
+            print("Querrying for stock: ", stock)
             try:
                 t = get_tweets(username=user, start_date=start_date,end_date=end_date,query_search=querry_filter, maxtweets=100, got_output_file=str(self.id) + ".csv" )
-                global gtweets
-                gtweets_loc.acquire()
-                gtweets.extend(t)
-                gtweets_loc.release()
+                add_tweets(stock, t)
             finally:
                 self.input_queue.task_done()
 
@@ -37,8 +44,8 @@ def start_querries(querries):
     gtweets = []
     # Create a queue to communicate with the worker threads
     task_queue = Queue()
-    # Create 8 worker threads
-    for i in range(8):
+    # Create worker threads
+    for i in range(2):
         worker = TweetsWorker(task_queue, i)
         # Setting daemon to True will let the main thread exit even though the workers are blocking
         worker.daemon = True
@@ -86,19 +93,21 @@ def make_analyst_filter(stock):
     return str(stock[0]) + " " + str(stock[1])
 
 def get_analyst_tweets(start_date, end_date, stocks=None):
+    print("Fetching analyst tweets")
     twitter_accounts = get_finance_twitter_accounts()
     if not stocks:
         stocks = get_cached_stocks()
-    return start_querries([ (start_date, end_date, make_analyst_filter(stock), user) for stock in stocks for user in twitter_accounts])
+    return start_querries([ (start_date, end_date, make_analyst_filter(stock), stock[1], user) for stock in stocks for user in twitter_accounts])
 
 # make market tweets about stock filter    
 def make_market_filter(stock):
     return str(stock[0]) + " " + str(stock[1]) + " stock market"
 
 def get_market_tweets(start_date, end_date, stocks=None):
+    print("Fetching market tweets")
     if not stocks:
         stocks = get_cached_stocks()
-    return start_querries([ (start_date, end_date, make_market_filter(stock), None) for stock in stocks])
+    return start_querries([ (start_date, end_date, make_market_filter(stock), stock[1], None) for stock in stocks])
 
 if __name__ == "__main__":
     startDate = datetime.datetime(2017, 1, 1, 0, 0, 0)
