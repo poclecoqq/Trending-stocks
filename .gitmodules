@@ -1,0 +1,3 @@
+[submodule "projet/app/tweets_handler/GetOldTweets-python"]
+	path = projet/app/tweets_handler/GetOldTweets-python
+	url = git@github.com:Jefferson-Henrique/GetOldTweets-python.git
