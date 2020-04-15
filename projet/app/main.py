@@ -37,7 +37,7 @@ def stock_sentiment_analysis(tweets_analysis):
 
 def top_stocks(stock_sentiment, stock_number=10):
     a = stock_sentiment.items()
-    return sorted(a,key=lambda x:x[1][0], reverse=True)
+    return sorted(a,key=lambda x:x[1][0], reverse=True)[:stock_number]
 
 
 def querry_twitter(startDate, endDate, stocks):
@@ -53,10 +53,10 @@ def get_best_stocks(tweets):
 
 
 # TODO: finish the steps thing
-def main(startDate, endDate, step):
+def main(startDate, endDate, step, sector):
     stocks = None
     if step <= 1:
-        stocks = get_companies(2)
+        stocks = get_companies(sector)
     else:
         stocks = utils.get_prototype_stocks()
     

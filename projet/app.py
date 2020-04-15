@@ -10,6 +10,7 @@ def initialize_argparser():
     parser.add_argument("-m", "--month", action="store", default=today.strftime("%m"), help="Month for stock analysis")
     parser.add_argument("-d", "--day", action="store", default=today.strftime("%d"), help="Day for stock analysis")
     parser.add_argument("-p", "--period", action="store", default=30, help="Time period considered for stock analysis. Unit:days")
+    parser.add_argument("-i", "--industry", action="store", default=0, help="Sector to analyse. See root readme for more info.")
     parser.add_argument("-s", "--step", help="Execute program from which step. 1:Fetch stocks, 2:Fetch Twitter 3:Sentiment anlaysis", choices=["1", "2", "3"], default="1")
     parser.add_argument("-t", "--thread", help="Computationnal ressources used for queerying twitter. ", choices=[i for i in range(1,101)], default=2)
     args = parser.parse_args()
@@ -46,12 +47,19 @@ def build_period_dates(args):
 def get_step(args):
     return int(args.step)
 
+def get_sector(args):
+    sector = int(args.industry)
+    if sector not in range(15):
+        exit("Sector must be a value between 0 and 14, inclusively.")
+    return sector
+
 def read_arguments(args):
     is_year_valid(args)
     is_period_valid(args)    
     start_date, end_date = build_period_dates(args)
     step = get_step(args)
-    return start_date, end_date, step
+    sector = get_sector(args)
+    return start_date, end_date, step, sector
 
 def give_results(best_stocks):
     print("The best stocks are: ", end = ', ')
@@ -68,6 +76,6 @@ def set_thread_number(args):
 
 args = initialize_argparser()
 set_thread_number(args)
-start_date, end_date, step = read_arguments(args)
-best_stocks = main(start_date, end_date, step)
+start_date, end_date, step, sector = read_arguments(args)
+best_stocks = main(start_date, end_date, step, sector)
 give_results(best_stocks)
