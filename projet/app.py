@@ -62,9 +62,8 @@ def read_arguments(args):
     return start_date, end_date, step, sector
 
 def give_results(best_stocks):
-    print("The best stocks are: ", end = ', ')
-    for stock in best_stocks:
-        print(stock, end = ', ')
+    print("The best stocks are: ", end = '')
+    print(", ".join(best_stocks))
     print()
     with open("output.txt", "w") as file:
         for stock in best_stocks:

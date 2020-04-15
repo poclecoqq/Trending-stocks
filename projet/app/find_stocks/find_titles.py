@@ -47,8 +47,8 @@ def get_pages_number(html):
 # 13 - Technology
 # 14 - Utilities & Pipeline
 def get_companies(sector_index, market_cap_index=5):
-    if sector_index not in range(1,15):
-        exit("sector_index must be between 1 and 15")
+    if sector_index not in range(0,15):
+        exit("sector_index must be between 0 and 15")
     if market_cap_index not in range(1,6):
         exit("sector_index must be between 1 and 5")
     
