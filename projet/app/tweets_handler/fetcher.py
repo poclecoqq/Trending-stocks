@@ -31,7 +31,6 @@ class TweetsWorker(Thread):
         while True:
             # Get the work from the queue and expand the tuple
             start_date, end_date, querry_filter, stock, user  = self.input_queue.get()
-            print("Querrying for stock: ", stock)
             try:
                 t = get_tweets(username=user, start_date=start_date,end_date=end_date,query_search=querry_filter, maxtweets=100, got_output_file=str(self.id) + ".csv" )
                 add_tweets(stock, t)

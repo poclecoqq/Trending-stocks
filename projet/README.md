@@ -11,7 +11,7 @@ The goal of this project is to give the most trending stocks on the market based
 - Have [GOT](2) downloaded in this [folder](./app/tweets_handler).
 
 
-## How to use te interface
+## How to use the interface
 To launch the program, execute the following command:
 ```
 python3 app.py [Options]
