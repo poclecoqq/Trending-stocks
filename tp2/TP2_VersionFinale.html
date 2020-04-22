@@ -13088,22 +13088,22 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">yfinance</span> <span class="k">as</span> <span class="nn">yf</span> 
 <span class="kn">from</span> <span class="nn">pandas_datareader</span> <span class="kn">import</span> <span class="n">data</span><span class="p">,</span> <span class="n">wb</span>
-<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">roc_auc_score</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">roc_curve</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
-<span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">RFE</span>
+<span class="c1">#from sklearn.tree import DecisionTreeClassifier</span>
+<span class="c1">#from sklearn.metrics import accuracy_score, roc_auc_score, confusion_matrix, roc_curve</span>
+<span class="c1">#from sklearn.linear_model import LogisticRegression</span>
+<span class="c1">#from sklearn.metrics import mean_squared_error</span>
+<span class="c1">#from sklearn.feature_selection import RFE</span>
 <span class="kn">import</span> <span class="nn">math</span> <span class="k">as</span> <span class="nn">mt</span>
-<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="c1">#import statsmodels.formula.api as smf</span>
+<span class="c1">#from sklearn.model_selection import train_test_split</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="c1">#from sklearn.ensemble import RandomForestClassifier</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -13120,7 +13120,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">start_sp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
@@ -13146,37 +13146,10 @@ div#notebook {
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-1-27a1451af20a&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>start_sp <span class="ansi-blue-fg">=</span> datetime<span class="ansi-blue-fg">.</span>datetime<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">2020</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span> end_sp <span class="ansi-blue-fg">=</span> datetime<span class="ansi-blue-fg">.</span>datetime<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">2020</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      3</span> 
-<span class="ansi-green-intense-fg ansi-bold">      4</span> <span class="ansi-red-fg"># Use Vanguard ETF</span>
-<span class="ansi-green-intense-fg ansi-bold">      5</span> <span class="ansi-red-fg"># SP500 Index + 11 Industry</span>
-
-<span class="ansi-red-fg">NameError</span>: name &#39;datetime&#39; is not defined</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_Data_bin</span><span class="p">(</span><span class="n">ticker</span><span class="p">,</span><span class="n">debut</span><span class="p">,</span><span class="n">fin</span><span class="p">):</span>
@@ -14176,7 +14149,7 @@ AIC score : -17373.769691502148
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Le-AIC,-en-utilisant-la-m&#233;thode-r&#233;cursive-&#224;-diminuer,-par-contre,-l'accuracy-rester-le-m&#234;me.-Le-%-du-test-est-de-70,5%-ce-qui-est-bien-pour-un-mod&#232;le.">Le AIC, en utilisant la m&#233;thode r&#233;cursive &#224; diminuer, par contre, l'accuracy rester le m&#234;me. Le % du test est de 70,5% ce qui est bien pour un mod&#232;le.<a class="anchor-link" href="#Le-AIC,-en-utilisant-la-m&#233;thode-r&#233;cursive-&#224;-diminuer,-par-contre,-l'accuracy-rester-le-m&#234;me.-Le-%-du-test-est-de-70,5%-ce-qui-est-bien-pour-un-mod&#232;le.">&#182;</a></h4>
+<h4 id="Le-AIC,-en-utilisant-la-m&#233;thode-r&#233;cursive-&#224;-diminuer,-par-contre,-l'accuracy-rester-le-m&#234;me.-Le-%-du-test-est-de-51,6%-ce-qui-est-plus-grand-que-50%.">Le AIC, en utilisant la m&#233;thode r&#233;cursive &#224; diminuer, par contre, l'accuracy rester le m&#234;me. Le % du test est de 51,6% ce qui est plus grand que 50%.<a class="anchor-link" href="#Le-AIC,-en-utilisant-la-m&#233;thode-r&#233;cursive-&#224;-diminuer,-par-contre,-l'accuracy-rester-le-m&#234;me.-Le-%-du-test-est-de-51,6%-ce-qui-est-plus-grand-que-50%.">&#182;</a></h4>
 </div>
 </div>
 </div>
@@ -15152,7 +15125,7 @@ AIC score : -19052.78056462676
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Le-mod&#232;le-le-plus-pr&#233;cis-est-celui-du-random-forest-avec-72-%.-Il-fait-tout-les-possibilit&#233;s-possibles-ce-qui-rend-son-modele-pr&#233;cis-dans-ce-cas.">Le mod&#232;le le plus pr&#233;cis est celui du random forest avec 72 %. Il fait tout les possibilit&#233;s possibles ce qui rend son modele pr&#233;cis dans ce cas.<a class="anchor-link" href="#Le-mod&#232;le-le-plus-pr&#233;cis-est-celui-du-random-forest-avec-72-%.-Il-fait-tout-les-possibilit&#233;s-possibles-ce-qui-rend-son-modele-pr&#233;cis-dans-ce-cas.">&#182;</a></h4>
+<h4 id="Le-mod&#232;le-le-plus-pr&#233;cis-est-celui-du-random-forest-avec-58%.-Il-fait-tout-les-possibilit&#233;s-possibles-ce-qui-rend-son-modele-pr&#233;cis-dans-ce-cas.">Le mod&#232;le le plus pr&#233;cis est celui du random forest avec 58%. Il fait tout les possibilit&#233;s possibles ce qui rend son modele pr&#233;cis dans ce cas.<a class="anchor-link" href="#Le-mod&#232;le-le-plus-pr&#233;cis-est-celui-du-random-forest-avec-58%.-Il-fait-tout-les-possibilit&#233;s-possibles-ce-qui-rend-son-modele-pr&#233;cis-dans-ce-cas.">&#182;</a></h4>
 </div>
 </div>
 </div>
@@ -15810,7 +15783,7 @@ dtype: float64</pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>En utilisant un modele pour chaque ETF, il est évident que le modèle sera moins efficace pour généraliser sur les autres ETF, donc il faudrait créer un modèle a chaque fois qu'on veut savoir pour un stock. On peut voir qu'il est beaucoup plus élevé que le modèle généralisé.</p>
+<p>En utilisant un modele pour chaque ETF, il est évident que le modèle sera moins efficace pour généraliser sur les autres ETF, donc il faudrait créer un modèle a chaque fois qu'on veut savoir pour un stock. L'accuracy est même plus petite pour chaque modèle pris séparer.</p>
 
 </div>
 </div>
