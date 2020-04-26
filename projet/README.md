@@ -7,8 +7,9 @@ The goal of this project is to give the most trending stocks on the market based
 
 
 ## Prerequisites
+- Enter the project virtual environnement. Read the [instruction](installDependencies/README.md)
 - Download a Selenium [chrome driver](https://chromedriver.chromium.org/downloads). Place it in this [folder](./app/find_stocks) under the name "chromedriver".
-- Have [GOT](2) downloaded in this [folder](./app/tweets_handler).
+- Make sure to have [GOT](2) downloaded in this [folder](./app/tweets_handler).
 
 
 ## How to use the interface
