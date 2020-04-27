@@ -6,11 +6,11 @@ import app.tweets_handler.fetcher as fetcher
 def initialize_argparser():
     parser = argparse.ArgumentParser(prog="tweet-analysis", description="Analyse tweet. See README file for more details.")
     today = datetime.date.today()
-    parser.add_argument("-y", "--year", action="store", default=today.strftime("%Y"), help="Year for stock analysis")
-    parser.add_argument("-m", "--month", action="store", default=today.strftime("%m"), help="Month for stock analysis")
-    parser.add_argument("-d", "--day", action="store", default=today.strftime("%d"), help="Day for stock analysis")
-    parser.add_argument("-p", "--period", action="store", default=30, help="Time period considered for stock analysis. Unit:days")
-    parser.add_argument("-t", "--thread", help="Computationnal ressources used for queerying twitter. ", choices=[i for i in range(1,101)], default=2)
+    parser.add_argument("-y", "--year", action="store", default=today.strftime("%Y"), help="Year for stock analysis", metavar="[2007-today]")
+    parser.add_argument("-m", "--month", action="store", default=today.strftime("%m"), help="Month for stock analysis", metavar="[1-12]")
+    parser.add_argument("-d", "--day", action="store", default=today.strftime("%d"), help="Day for stock analysis", metavar="[0-31]")
+    parser.add_argument("-p", "--period", action="store", default=30, help="Time period considered for stock analysis. Unit:days", metavar="DAYS")
+    parser.add_argument("-t", "--thread", help="Computationnal ressources used for queerying twitter. ", choices=[str(i) for i in range(1,101)], default=2, metavar="[0-100]")
     args = parser.parse_args()
     return args
 
