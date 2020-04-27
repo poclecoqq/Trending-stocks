@@ -50,7 +50,7 @@ def get_best_stocks(tweets):
     return top_stocks(stock_sentiment)
 
 
-def main(startDate, endDate, step, path_to_file):
+def main(startDate, endDate, path_to_file):
     stocks = utils.read_stock_file(path_to_file)
     tweets = querry_twitter(startDate, endDate, stocks)
     best_stocks = get_best_stocks(tweets)
