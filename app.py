@@ -76,5 +76,5 @@ def set_thread_number(args):
 args = initialize_argparser()
 set_thread_number(args)
 start_date, end_date, step, sector = read_arguments(args)
-best_stocks = main(start_date, end_date, step, sector)
+best_stocks = main(start_date, end_date, step, "test.csv")
 give_results(best_stocks)

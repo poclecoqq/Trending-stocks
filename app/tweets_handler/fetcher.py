@@ -85,8 +85,4 @@ def get_market_tweets(start_date, end_date, stocks):
     print("Fetching market tweets")
     return start_querries([ (start_date, end_date, make_market_filter(stock), stock[1], None) for stock in stocks])
 
-if __name__ == "__main__":
-    startDate = datetime.datetime(2017, 1, 1, 0, 0, 0)
-    endDate =   datetime.datetime(2019, 2, 1, 0, 0, 0)
 
-    print(get_market_tweets(startDate.strftime("%Y-%m-%d"), endDate.strftime("%Y-%m-%d")))

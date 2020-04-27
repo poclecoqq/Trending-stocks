@@ -2,7 +2,6 @@ import datetime
 
 from . import sentiment_analysis
 from .tweets_handler.fetcher import get_analyst_tweets, get_market_tweets
-from .find_stocks.find_titles import get_companies
 from . import utils
 
 
@@ -51,20 +50,9 @@ def get_best_stocks(tweets):
     return top_stocks(stock_sentiment)
 
 
-
-# TODO: finish the steps thing
-def main(startDate, endDate, step, sector):
-    stocks = None
-    if step <= 1:
-        stocks = get_companies(sector)
-    else:
-        stocks = utils.get_prototype_stocks()
-    
-    tweets = None
-    if step <= 2:
-        tweets = querry_twitter(startDate, endDate, stocks)
-    else:
-        tweets = utils.get_saved_data("tweets")
+def main(startDate, endDate, step, path_to_file):
+    stocks = utils.read_stock_file(path_to_file)
+    tweets = querry_twitter(startDate, endDate, stocks)
     best_stocks = get_best_stocks(tweets)
     return [x[0] for x in best_stocks]
     
