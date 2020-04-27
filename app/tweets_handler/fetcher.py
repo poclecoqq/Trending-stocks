@@ -6,11 +6,13 @@ from threading import Thread
 from threading import Lock
 
 from .communications import get_tweets
+from .utils import ProgressBar
 
 c_dir = os.path.dirname(os.path.realpath(__file__))
 gtweets_loc = Lock()
 gtweets = []
 thread_nb = 2
+p_bar = None
 
 def add_tweets(stock, tweets):
     for tweet in tweets:
@@ -18,6 +20,7 @@ def add_tweets(stock, tweets):
     global gtweets, gtweets_loc
     gtweets_loc.acquire()
     gtweets.extend(tweets)
+    p_bar.step_done()
     gtweets_loc.release()
 
 class TweetsWorker(Thread):
@@ -39,7 +42,8 @@ class TweetsWorker(Thread):
 
 
 def start_querries(querries):
-    global gtweets, thread_nb
+    global gtweets, thread_nb, p_bar
+    p_bar = ProgressBar(len(querries))    
     gtweets = []
     # Create a queue to communicate with the worker threads
     task_queue = Queue()
