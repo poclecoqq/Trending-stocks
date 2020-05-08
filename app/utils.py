@@ -15,5 +15,5 @@ def read_stock_file(path_to_file):
         reader = csv.reader(file)
         for row in reader:
             if valid_row(row):
-                stocks.append((row[0],row[1]))
+                stocks.append((row[1],row[0]))
     return stocks
