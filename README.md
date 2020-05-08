@@ -32,6 +32,7 @@ The file must be a csv file where each line is ``` COMPANY_NAME, TICKER ```.
 ```
 -f --file PATH_TO_FILE
 ```
+By default, reads stocks from tsx_1B.csv. The file is a list of companies on the toronto stock exchange with a market cap over 1B. Taken from [TSX discovery tool](https://api.tmxmoney.com/en/migreport/search).
 
 ### Period
 Stocks are analyzed over a certain time period. To specify this period, you must first choose its ending date, then its length. The starting date of the period is obtained by substracting for the ending date the time period. By default, the ending date is the current day, and the period is 30 days.

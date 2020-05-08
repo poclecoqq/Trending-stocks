@@ -7,7 +7,7 @@ import app.tweets_handler.fetcher as fetcher
 def initialize_argparser():
     parser = argparse.ArgumentParser(prog="tweet-analysis", description="Analyse tweet. See README file for more details.")
     today = datetime.date.today()
-    parser.add_argument("-f", "--file", action="store", help="Path to file containing stocks", metavar="[0-31]")
+    parser.add_argument("-f", "--file", action="store", help="Path to file containing stocks", metavar="PATH")
     parser.add_argument("-y", "--year", action="store", default=today.strftime("%Y"), help="Year for stock analysis", metavar="[2007-today]")
     parser.add_argument("-m", "--month", action="store", default=today.strftime("%m"), help="Month for stock analysis", metavar="[1-12]")
     parser.add_argument("-d", "--day", action="store", default=today.strftime("%d"), help="Day for stock analysis", metavar="[0-31]")
@@ -47,7 +47,7 @@ def build_period_dates(args):
 def get_stocks(args):
     file_path = str(args.file)
     if not utils.file_exists(file_path):
-        exit("The given path is not valid")
+        file_path = "./tsx_1B.csv"
     return utils.read_stock_file(file_path)
 
 def read_arguments(args):

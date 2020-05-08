@@ -3,4 +3,5 @@ __pycache__
 *.pyc
 .vscode
 *.csv
+!tsx_1B.csv
 output.txt
