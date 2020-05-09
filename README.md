@@ -28,7 +28,7 @@ The following subsections will describe the options.
 
 ### File
 The user must provide a file listing all the stock that are going to be considered by the application to give the stocks with best market sentiment. 
-The file must be a csv file where each line begins with ``` TICKER, COMPANY_NAME  ```.
+The file must be a csv file where each line begins with ``` STOCK_EXCHANGE, TICKER, COMPANY_NAME  ```.
 ```
 -f --file PATH_TO_FILE
 ```
