@@ -1,0 +1,14 @@
+The best stocks are: ABX, EQB, RUS, SES, CAE, IGM, CSU, CEU, CAR.UN, CCO
+The best stocks are: EQB, TRQ, LB, SES, CIGI, ARX, CNU, TCL.A, CGX, VII
+The best stocks are: CAE, ARX, AIF, SAP, EQB, CSU, ONEX, RUS, TRQ, SES
+The best stocks are: GUD, EQB, IGM, CSU, IMO, ARX, H, SAP, NWC, AIF
+The best stocks are: ESI, HSE, NPI, RY, RBA, GUD, IMO, ARX, BAM.A, BBU.UN
+The best stocks are: CGX, REI.UN, ATD.B, ENDP, BAM.A, BBU.UN, BIP.UN, BYD.UN, H, ALA
+The best stocks are: GC, GWO, T, EDV, EMP.A, BYD.UN, SHOP, GIB.A, SPB, KXS
+The best stocks are: MAL, POU, MG, BCE, ZAG, CPG, BB, PEN, SHOP, FCR
+The best stocks are: BAD, CCO, IGM, SES, CSU, IMO, EQB, CAR.UN, BEP.UN, L
+The best stocks are: CSU, CAE, SES, BAD, MDA, BPY.UN, BEP.UN, IFC, CCA, L
+The best stocks are: RCH, CSU, H, CAE, CCO, NPI, EQB, QSR, QSP.UN, HBC
+The best stocks are: ELD, CVE, UNC, ECN, CCL.B, EFN, ZCN, ZCS, ZDY, PWT
+CCO, CIGI, HBC, SPB, AFN, ABX, IMG, GUD, AIM, BPY.UN
+
