@@ -23,4 +23,20 @@ The best stocks are: SHOP, MAG, PEN, SJR.B, ZAG, ZWB, ZHY, ZPR, ZLB, POU
 The best stocks are: HBC, LIF, GUD, HSE, H, CSU, RCI.B, EQB, QSP.UN, CAR.UN
 The best stocks are: GTE, DSG, WN, SPB, ARE, CPD, XEG, XFN, XRE, AYA
 The best stocks are: IMO, CP, CR, RY, FCR, CM, RCI.B, CNR, CNQ, RBA
+The best stocks are: CAS, SNC, DDC, DRG.UN, D.UN, ZEA, ZUE, ZSP, ZIC, ZCM
+The best stocks are: LIF, K, GUD, CSU, CR, IMO, NG, IMG, NPI, IAG
+The best stocks are: MRU, MNW, TRQ, EFN, MST.UN, SES, XIU, CDZ, CPD, XEG
+The best stocks are: RUS, VAB, HSE, NPI, CIX, SES, LNF, VII, CHP.UN, ARX
+The best stocks are: CR, ABX, QSR, QSP.UN, CNR, RRX, CEU, CM, NWC, AAR.UN
+The best stocks are: ZSP, REI.UN, GEI, DRG.UN, D.UN, QSR, QSP.UN, ZCM, ZIC, ZEA
+The best stocks are: GC, AX.UN, AIM, ENB, SPB, ENF, AYA, CVE, ATD.B, DSG
+The best stocks are: IPL, FR, FCR, BB, CM, CNR, CNQ, CP, RY, IFC
+The best stocks are: POT, MST.UN, PWT, PHY.U, ECN, TPX.B, SRU.UN, WFT, BBD.B, AC
+The best stocks are: GC, XIC, XIN, XIU, CDZ, CPD, XEG, MRU, HR.UN, MST.UN
+The best stocks are: SPB, STN, IVN, SLF, HSE, CU, PJC.A, QSR, QSP.UN, RRX
+The best stocks are: VRX, GIB.A, MRU, SJR.B, WN, SLW, PAA, AC, MST.UN, UNC
+The best stocks are: GUD, RY, H, RCH, NWC, BMO, CAR.UN, NGD, RCI.B, BNS
+The best stocks are: CAS, MAG, WN, AC, CBO, CLF, XCB, XDV, RCI.B, CPX
+The best stocks are: XEG, CPD, XFN, XRE, GC, KEL, SPB, MNW, LNF, WPK
+The best stocks are: VII, IPL, FCR, CR, EIF, CJR.B, OTC, CEU, CM, CNR
 
