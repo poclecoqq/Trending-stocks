@@ -6,8 +6,7 @@ import pickle
 import yfinance as yf
 from dateutil.relativedelta import relativedelta
 
-from utils import list_average, read_results, plot_yields, to_valid_open_market_day
-
+import utils
 
 output = sys.stdout
 to_null = open(os.devnull, 'w')
@@ -15,8 +14,9 @@ to_null = open(os.devnull, 'w')
 
 def get_3_month_yield(ticker: str, date: str):
     stock_value = request_stock(ticker, date)
-    stock_yield = (stock_value.iloc[-1]["Close"] -
-                   stock_value.iloc[0]["Close"]) / stock_value.iloc[0]["Close"]
+    start_value = utils.find_first_close_value(stock_value)
+    end_value = utils.find_last_close_value(stock_value)
+    stock_yield = (end_value - start_value) / start_value
     return 1 + stock_yield
 
 
@@ -56,32 +56,17 @@ def average_yields(stocks):
     total_yield = {}
     for date in results:
         yields = get_stocks_yields(results[date], date)
-        average_yield = list_average(yields)
+        average_yield = utils.list_average(yields)
         total_yield[date] = average_yield
     return total_yield
 
 
-# results = read_results("./res.txt")
-# y = average_yields(results)
-# print(y)
+results = utils.read_results("./res.txt")
+y = average_yields(results)
 
 index = yf.Ticker("^GSPTSE")
 his = index.history(start="2009-12-01", end="2020-03-01")
 
-start_value = his.iloc[0]['Close']
-index_yield = {}
-for index, row in his.iterrows():
-    index_yield[index.to_pydatetime()] = row['Close'] / start_value
+index_yield = utils.df_to_yield_dic(his)
 
-print(index_yield)
-# f = open("a", "wb")
-# pickle.dump(y, f)
-f = open("b", "wb")
-pickle.dump(index_yield, f)
-
-f = open("a", "rb")
-y = pickle.load(f)
-# f = open("b", "rb")
-# his = pickle.load(f)
-
-plot_yields(y, index_yield)
+utils.plot_yields(y, index_yield)

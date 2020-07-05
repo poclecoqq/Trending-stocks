@@ -6,6 +6,32 @@ import holidays
 from dateutil.relativedelta import relativedelta
 
 
+def df_to_yield_dic(df):
+    start_value = df.iloc[0]['Close']
+    yield_dic = {}
+    for index, row in df.iterrows():
+        yield_dic[index.to_pydatetime()] = row['Close'] / start_value
+    return yield_dic
+
+
+def find_first_close_value(df):
+    val = 0
+    i = 0
+    while(not val and i < df.shape[0]):
+        val = df.iloc[i]["Close"]
+        i += 1
+    return val
+
+
+def find_last_close_value(df):
+    val = 0
+    i = df.shape[0] - 1
+    while(not val and i >= 0):
+        val = df.iloc[i]["Close"]
+        i -= 1
+    return val
+
+
 def read_results(file_path: str):
     dateformat = "%Y-%m-%d"
     file = open(file_path, "r")
@@ -43,11 +69,10 @@ def plot_yields(stock_picked, index):
     result = [stock_picked[date] for date in dates]
     for i in range(1, len(result)):
         result[i] = result[i-1] * result[i]
-    print(index.keys())
     index_result = [
         index[to_valid_open_market_day(date)] for date in dates]
-    # plt.plot(dates, result, marker='o', markerfacecolor='blue',
-    #          markersize=5, label="stock pick")
+    plt.plot(dates, result, marker='o', markerfacecolor='blue',
+             markersize=5, label="stock pick")
     plt.plot(dates, index_result, marker='o',
              markerfacecolor='red', markersize=5, label="GSPTSE")
     plt.legend()
