@@ -1,8 +1,7 @@
 import os
 import sys
 from datetime import datetime
-import pickle
-
+import json
 import yfinance as yf
 from dateutil.relativedelta import relativedelta
 
@@ -16,6 +15,7 @@ def get_3_month_yield(ticker: str, date: str):
     stock_value = request_stock(ticker, date)
     start_value = utils.find_first_close_value(stock_value)
     end_value = utils.find_last_close_value(stock_value)
+    print(ticker, start_value, end_value)
     stock_yield = (end_value - start_value) / start_value
     return 1 + stock_yield
 
@@ -48,25 +48,28 @@ def get_stocks_yields(stocks, date):
         if stock in ["MDA", "PWT", "DDC", "POT", "MST.UN", "AYA", "DRG.UN", "PHY.U", "VRX", "SLW"]:
             continue
         stock_yield = get_3_month_yield(stock, date)
-        yields.append(stock_yield)
+        # Filter out error in data (we suppose no yield of over x100)
+        if not stock_yield > 100:
+            yields.append(stock_yield)
+    print(date, stocks, yields)
     return yields
 
 
 def average_yields(stocks):
     total_yield = {}
-    for date in results:
-        yields = get_stocks_yields(results[date], date)
+    for date in stocks:
+        yields = get_stocks_yields(stocks[date], date)
         average_yield = utils.list_average(yields)
         total_yield[date] = average_yield
     return total_yield
 
 
 results = utils.read_results("./res.txt")
-y = average_yields(results)
+stocks_yield = average_yields(results)
 
 index = yf.Ticker("^GSPTSE")
 his = index.history(start="2009-12-01", end="2020-03-01")
 
 index_yield = utils.df_to_yield_dic(his)
 
-utils.plot_yields(y, index_yield)
+utils.plot_yields(stocks_yield, index_yield)
