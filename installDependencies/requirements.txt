@@ -4,7 +4,7 @@ chardet==3.0.4
 click==7.1.1
 idna==2.9
 joblib==0.14.1
-lxml==4.5.0
+lxml==4.6.5
 multitasking==0.0.9
 nltk==3.5
 numpy==1.18.2
